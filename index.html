@@ -16,7 +16,7 @@
       <button class="start-button" type="button"></button>
     </div>
 
-    <div class="result show">
+    <div class="result">
       <div class="row">
         <div class="radius money">
           <p class="title">金運</p>
@@ -92,17 +92,17 @@
         $(".start-button").click(function () {
           $(".start-button").toggleClass("js-fortune-start");
           if ($(".start-button").hasClass("js-fortune-start")) {
+            for (let i in fortuneResults) {
+              const rand = Math.floor(Math.random() * 3); // 乱数0～2を取得
+              const $target = $("." + i);
+
+              $target.find(".stars").text(fortuneResults[i][rand]["stars"]);
+
+              $target.find(".detail").text(fortuneResults[i][rand]["detail"]);
+            }
             $(".result").fadeIn(1000);
-          } else if (!$(".start-button").hasClass("js-fortune-start")) {
-            $(".result").fadeOut(1000);
-          }
-          for (let i in fortuneResults) {
-            const rand = Math.floor(Math.random() * 3); // 乱数0～2を取得
-            const $target = $("." + i);
-
-            $target.find(".stars").text(fortuneResults[i][rand]["stars"]);
-
-            $target.find(".detail").text(fortuneResults[i][rand]["detail"]);
+          } else {
+            $(".result").fadeOut();
           }
         });
       });
